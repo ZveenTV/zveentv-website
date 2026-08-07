@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZveenTV — Seite nicht gefunden</title>
+<title>404 — ZveenTV</title>
 <meta name="robots" content="noindex">
+<meta name="description" content="Diese Seite gibt es bei ZveenTV nicht — zurück zur Startseite oder direkt zum Twitch-Stream.">
 <link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,80 +13,9 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
 <div class="bg-decor" aria-hidden="true"><span class="stripe left"></span><span class="stripe right"></span></div>
-
-<header class="nav">
-  <div class="nav-inner">
-    <div class="brand-group">
-      <a href="index.html" class="brand">
-        <img src="assets/logo.png" alt="ZveenTV Logo">
-        <span class="brand-name">ZVEEN<span class="hl">TV</span></span>
-      </a>
-      <span class="live-badge-nav" id="liveBadgeNav">
-        <span class="live-badge-dot" aria-hidden="true"></span>
-        <span id="liveBadgeText">Live</span>
-      </span>
-    </div>
-    <nav class="links" id="navLinks" aria-label="Hauptnavigation">
-      <a href="index.html">Home</a>
-      <a href="about.html">Über mich</a>
-      <a href="equipment.html">Equipment</a>
-      <a href="clips.html">Clips</a>
-      <a href="community.html">Community</a>
-    </nav>
-    <div class="nav-cta">
-      <a class="btn ghost" href="https://discord.com/invite/sVWuKPpkG8" target="_blank" rel="noopener">Discord</a>
-      <a class="btn primary" href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Auf Twitch</a>
-    </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">☰</button>
-  </div>
-</header>
-
-<main>
-  <section class="error-hero">
-    <div class="content-narrow error-inner">
-      <div class="eyebrow center">Fehler 404</div>
-      <div class="error-code">4<span>0</span>4</div>
-      <h1>Diese Seite ist wohl gelurkt und nie zurückgekommen.</h1>
-      <p>Der Link, dem du gefolgt bist, führt leider ins Leere. Vielleicht wurde die Seite verschoben oder es hat sich ein Tippfehler eingeschlichen.</p>
-      <div class="error-cta">
-        <a class="btn primary" href="index.html">Zur Startseite →</a>
-        <a class="btn ghost" href="community.html">Zur Community</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="content-wide footer-inner">
-    <span>© 2026 ZveenTV</span>
-    <span>Gaming. Gute Laune. Chaos mit Plan.</span>
-  </div>
-</footer>
-
-<script>
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', isOpen);
-  });
-
-  fetch('/.netlify/functions/twitch-status')
-    .then(res => res.json())
-    .then(data => {
-      if (data.live) {
-        const badge = document.getElementById('liveBadgeNav');
-        const text = document.getElementById('liveBadgeText');
-        if (badge && text) {
-          text.textContent = `Live · ${data.viewers} Zuschauer`;
-          badge.classList.add('is-live');
-        }
-      }
-    })
-    .catch(() => { /* Badge bleibt einfach ausgeblendet, kein Problem */ });
-</script>
-
-</body>
-</html>
+<header class="nav"><div class="nav-inner"><div class="brand-group"><a href="index.html" class="brand"><img src="assets/logo.png" alt="ZveenTV Logo"><span class="brand-name">ZVEEN<span class="hl">TV</span></span></a></div><nav class="links" id="navLinks" aria-label="Hauptnavigation"><a href="index.html">Home</a><a href="about.html">Über mich</a><a href="equipment.html">Equipment</a><a href="clips.html">Clips</a><a href="community.html">Community</a></nav><div class="nav-cta"><a class="btn primary" href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Auf Twitch</a></div><button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">☰</button></div></header>
+<main><section class="error-hero"><div class="content-narrow error-inner"><div class="error-code">4<span>0</span>4</div><div class="eyebrow center">Hier ist nichts</div><h1>Diese Seite hat sich wohl verlaufen.</h1><p>Kein Problem — zurück zu ZveenTV und weiter geht's.</p><div class="error-cta"><a class="btn primary" href="index.html">Zur Startseite →</a><a class="btn ghost" href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Twitch öffnen</a></div></div></section></main>
+<footer><div class="content-wide footer-inner"><span>© 2026 ZveenTV</span><span>Gaming. Gute Laune. Pures Chaos.</span></div></footer>
+<script>const navToggle=document.getElementById('navToggle');const navLinks=document.getElementById('navLinks');navToggle?.addEventListener('click',()=>{const isOpen=navLinks.classList.toggle('open');navToggle.setAttribute('aria-expanded',isOpen);});</script>
+</body></html>
