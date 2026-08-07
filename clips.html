@@ -13,7 +13,7 @@
 <header class="nav"><div class="nav-inner"><div class="brand-group"><a href="index.html" class="brand"><img src="assets/logo.png" alt="ZveenTV Logo"><span class="brand-name">ZVEEN<span class="hl">TV</span></span></a><span class="live-badge-nav" id="liveBadgeNav"><span class="live-badge-dot"></span><span id="liveBadgeText">Live</span></span></div><nav class="links" id="navLinks" aria-label="Hauptnavigation"><a href="index.html">Home</a><a href="about.html">Über mich</a><a href="equipment.html">Equipment</a><a href="clips.html" class="active">Clips</a><a href="community.html">Community</a></nav><div class="nav-cta"><a class="btn ghost" href="https://discord.com/invite/sVWuKPpkG8" target="_blank" rel="noopener">Discord</a><a class="btn primary" href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Auf Twitch</a></div><button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">☰</button></div></header>
 <main>
 <section class="page-hero"><div class="content-wide"><div class="eyebrow">Highlights</div><h1>Momente, die hängen bleiben.</h1><p>Manches kann man nicht planen — und genau daraus entstehen oft die besten Clips. Klick auf einen Clip und schau ihn direkt hier auf der Website.</p></div></section>
-<section><div class="content-wide"><div class="clips-grid clip-popup-grid" id="clipsGrid" aria-live="polite"></div><div class="community-cta clips-cta" style="margin-top:64px; padding:48px 32px;"><div class="eyebrow center">Noch nicht genug?</div><h2 style="font-size:clamp(1.7rem,4vw,2.3rem);">Mehr Chaos gibt es direkt auf Twitch.</h2><p>Im vollständigen Clip-Archiv findest du weitere Highlights aus vergangenen Streams.</p><a class="btn primary" href="https://www.twitch.tv/zveentv/clips" target="_blank" rel="noopener">Alle Twitch-Clips öffnen →</a></div></div></section>
+<section><div class="content-wide"><div class="clips-grid clip-popup-grid" id="clipsGrid"></div><div class="community-cta clips-cta" style="margin-top:64px; padding:48px 32px;"><div class="eyebrow center">Noch nicht genug?</div><h2 style="font-size:clamp(1.7rem,4vw,2.3rem);">Mehr Chaos gibt es direkt auf Twitch.</h2><p>Im vollständigen Clip-Archiv findest du weitere Highlights aus vergangenen Streams.</p><a class="btn primary" href="https://www.twitch.tv/zveentv/clips" target="_blank" rel="noopener">Alle Twitch-Clips öffnen →</a></div></div></section>
 </main>
 <footer><div class="content-wide footer-inner"><span>© 2026 ZveenTV</span><span>Gaming. Gute Laune. Pures Chaos.</span></div></footer>
 
@@ -22,7 +22,7 @@
   <div class="clip-modal-panel">
     <div class="clip-modal-head"><div><div class="eyebrow">ZveenTV Clip</div><h2 id="clipModalTitle">Highlight</h2></div><button class="clip-modal-close" type="button" data-close-modal aria-label="Clip schließen">×</button></div>
     <div class="clip-player" id="clipPlayer"></div>
-    <div class="clip-modal-footer"><span id="clipModalMeta"></span><a id="clipModalTwitchLink" href="https://www.twitch.tv/zveentv/clips" target="_blank" rel="noopener">Auf Twitch öffnen ↗</a></div>
+    <div class="clip-modal-footer"><span></span><a id="clipModalTwitchLink" href="https://www.twitch.tv/zveentv/clips" target="_blank" rel="noopener">Auf Twitch öffnen ↗</a></div>
   </div>
 </div>
 
@@ -35,37 +35,18 @@ const parent=window.location.hostname||'localhost';
 const grid=document.getElementById('clipsGrid');
 const modal=document.getElementById('clipModal');
 const player=document.getElementById('clipPlayer');
-const modalTitle=document.getElementById('clipModalTitle');
-const modalMeta=document.getElementById('clipModalMeta');
 const modalLink=document.getElementById('clipModalTwitchLink');
 let lastFocus=null;
 
-function esc(v){return String(v??'').replace(/[&<>'\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]));}
-function formatViews(v){return new Intl.NumberFormat('de-DE').format(Number(v)||0);}
-function formatDuration(v){const s=Math.round(Number(v)||0);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;}
-function fallbackClips(){return CLIP_IDS.map(id=>({id,title:'',url:`https://clips.twitch.tv/${id}`}));}
-
-function renderClips(clips){
+function renderClips(){
   grid.innerHTML='';
-  clips.forEach((clip)=>{
+  CLIP_IDS.forEach((clipId)=>{
     const card=document.createElement('button');
     card.type='button';
     card.className='clip-popup-card';
-    card.dataset.clip=clip.id;
-    card.dataset.title=clip.title||'';
-    card.dataset.url=clip.url||`https://clips.twitch.tv/${clip.id}`;
-    card.dataset.views=clip.views??'';
-    card.dataset.duration=clip.duration??'';
-
-    const preview=clip.thumbnail
-      ? `<img src="${clip.thumbnail}" alt="${clip.title?`Thumbnail: ${esc(clip.title)}`:'ZveenTV Clip'}" loading="lazy">`
-      : `<iframe src="https://clips.twitch.tv/embed?clip=${encodeURIComponent(clip.id)}&parent=${encodeURIComponent(parent)}&autoplay=false&muted=true" title="ZveenTV Clip Vorschau" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>`;
-
-    const titleBlock=clip.title
-      ? `<div class="clip-title-wrap"><strong>${esc(clip.title)}</strong>${clip.views!==undefined?`<small>${formatViews(clip.views)} Aufrufe</small>`:''}</div>`
-      : `<div class="clip-title-wrap clip-title-pending" aria-hidden="true"></div>`;
-
-    card.innerHTML=`<div class="clip-popup-preview">${preview}<span class="clip-popup-shade"></span><span class="play-icon" aria-hidden="true"></span>${clip.duration?`<span class="clip-duration">${formatDuration(clip.duration)}</span>`:''}</div><div class="clip-popup-meta">${titleBlock}<span class="go">Hier ansehen →</span></div>`;
+    card.dataset.clip=clipId;
+    card.dataset.url=`https://clips.twitch.tv/${clipId}`;
+    card.innerHTML=`<div class="clip-popup-preview"><iframe src="https://clips.twitch.tv/embed?clip=${encodeURIComponent(clipId)}&parent=${encodeURIComponent(parent)}&autoplay=false&muted=true" title="ZveenTV Clip Vorschau" loading="lazy" tabindex="-1" aria-hidden="true"></iframe><span class="clip-popup-shade"></span><span class="play-icon" aria-hidden="true"></span></div><div class="clip-popup-meta clip-popup-meta-clean"><span class="go">Hier ansehen →</span></div>`;
     card.addEventListener('click',()=>openClip(card));
     grid.appendChild(card);
   });
@@ -74,13 +55,11 @@ function renderClips(clips){
 function openClip(card){
   lastFocus=card;
   const slug=card.dataset.clip;
-  modalTitle.textContent=card.dataset.title||'ZveenTV Clip';
-  modalMeta.textContent=[card.dataset.views?`${formatViews(card.dataset.views)} Aufrufe`:null,card.dataset.duration?`${formatDuration(card.dataset.duration)} Min.`:null].filter(Boolean).join(' · ');
   modalLink.href=card.dataset.url;
   player.innerHTML='';
   const iframe=document.createElement('iframe');
   iframe.src=`https://clips.twitch.tv/embed?clip=${encodeURIComponent(slug)}&parent=${encodeURIComponent(parent)}&autoplay=true&muted=false`;
-  iframe.title=card.dataset.title||'ZveenTV Clip';
+  iframe.title='ZveenTV Clip';
   iframe.allowFullscreen=true;
   iframe.setAttribute('allow','autoplay; fullscreen');
   player.appendChild(iframe);
@@ -93,10 +72,6 @@ function closeClip(){modal.classList.remove('open');modal.setAttribute('aria-hid
 modal.querySelectorAll('[data-close-modal]').forEach(el=>el.addEventListener('click',closeClip));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeClip();});
 
-renderClips(fallbackClips());
-fetch('/.netlify/functions/clips-data')
-  .then(r=>r.ok?r.json():Promise.reject())
-  .then(data=>{if(data.clips?.length)renderClips(data.clips);})
-  .catch(()=>{});
+renderClips();
 </script>
 </body></html>
