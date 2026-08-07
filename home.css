@@ -6,8 +6,8 @@
 
 .hero-home{min-height:calc(100vh - 67px); padding:72px 0 100px; clip-path:none; border-bottom:1px solid var(--line); position:relative;}
 .hero-home::before{content:""; position:absolute; inset:auto 0 0; height:170px; background:linear-gradient(180deg,transparent,rgba(10,5,9,.86)); pointer-events:none;}
-.home-hero-grid{max-width:1680px; padding:0 64px; display:grid; grid-template-columns:minmax(380px,.82fr) minmax(560px,1.18fr); gap:70px; text-align:left; align-items:center;}
-.hero-copy{display:flex; flex-direction:column; align-items:flex-start;}
+.home-hero-grid{max-width:1760px; padding:0 72px; display:grid; grid-template-columns:minmax(390px,.76fr) minmax(600px,1.24fr); gap:128px; text-align:left; align-items:center;}
+.hero-copy{display:flex; flex-direction:column; align-items:flex-start; max-width:650px;}
 .hero-kicker{display:flex; align-items:center; gap:12px; color:var(--magenta-bright); font-family:var(--ff-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; margin-bottom:24px;}
 .hero-kicker span{width:34px; height:2px; background:var(--magenta-bright); box-shadow:0 0 18px rgba(201,68,143,.5);}
 .hero-logo{width:116px; height:116px; border-radius:50%; border:2px solid var(--magenta-bright); box-shadow:0 0 0 8px rgba(201,68,143,.06),0 18px 55px rgba(0,0,0,.35); margin-bottom:28px;}
@@ -71,7 +71,8 @@
 .closer-inner p{color:var(--text-muted); margin-top:16px; max-width:54ch;}
 .closer-actions{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end;}
 
-@media (min-width:1800px){.home-hero-grid{padding:0 84px; gap:100px;}.hero-home{padding-top:90px;}.pillar-grid{gap:32px;}}
-@media (max-width:1180px){.home-hero-grid{grid-template-columns:1fr; max-width:980px; gap:52px; padding:0 42px;}.hero-copy{align-items:center; text-align:center;}.hero-home .hero-cta{justify-content:center}.hero-meta{justify-content:center}.hero-home h1{font-size:clamp(4rem,12vw,7rem)}.stream-stage{width:100%;}.hero-home{min-height:auto;}.intro-grid{gap:54px;}.pillar-grid{grid-template-columns:1fr 1fr;}.pillar-card:last-child{grid-column:1/-1;min-height:260px;}.closer-inner{align-items:flex-start;flex-direction:column}.closer-actions{justify-content:flex-start}}
+@media (min-width:1800px){.home-hero-grid{padding:0 96px; gap:160px;}.hero-home{padding-top:90px;}.pillar-grid{gap:32px;}}
+@media (max-width:1380px){.home-hero-grid{gap:86px;padding:0 54px;grid-template-columns:minmax(360px,.8fr) minmax(540px,1.2fr)}}
+@media (max-width:1180px){.home-hero-grid{grid-template-columns:1fr; max-width:980px; gap:52px; padding:0 42px;}.hero-copy{align-items:center; text-align:center;max-width:none}.hero-home .hero-cta{justify-content:center}.hero-meta{justify-content:center}.hero-home h1{font-size:clamp(4rem,12vw,7rem)}.stream-stage{width:100%;}.hero-home{min-height:auto;}.intro-grid{gap:54px;}.pillar-grid{grid-template-columns:1fr 1fr;}.pillar-card:last-child{grid-column:1/-1;min-height:260px;}.closer-inner{align-items:flex-start;flex-direction:column}.closer-actions{justify-content:flex-start}}
 @media (max-width:760px){.hero-home{padding:54px 0 78px}.home-hero-grid{padding:0 20px; gap:40px}.hero-logo{width:92px;height:92px;margin-bottom:22px}.hero-kicker{margin-bottom:18px}.hero-home h1{font-size:clamp(3.5rem,19vw,5.4rem)}.hero-home p.tagline{font-size:.98rem;margin-top:24px}.stream-stage{padding:10px}.stream-stage-top strong{font-size:.86rem}.stream-stage-bottom{align-items:flex-start; flex-direction:column; gap:5px}.scroll-cue{display:none}.intro-grid{grid-template-columns:1fr; gap:28px}.home-intro{padding:72px 0}.intro-copy p{font-size:.98rem}.home-pillars{padding:76px 0 82px}.pillar-grid{grid-template-columns:1fr}.pillar-card,.pillar-card:last-child{grid-column:auto;min-height:270px}.home-closer{padding:72px 0}.closer-actions{width:100%}}
 @media (max-width:480px){.hero-home .hero-cta{width:100%}.hero-home .hero-cta .btn{width:100%;justify-content:center}.hero-meta{margin-top:25px}.stream-stage-top{align-items:flex-start}.stream-stage-top>div{max-width:70%}.stream-state{padding:6px 8px}.intro-links{flex-direction:column;gap:14px}.pillar-card{padding:24px}.closer-actions .btn{width:100%;justify-content:center}}
