@@ -11,26 +11,12 @@ exports.handler = async function(event) {
 
   const password = process.env.ADMIN_PASSWORD;
   const secret = process.env.ADMIN_SESSION_SECRET;
-  const envStatus = {
-    ADMIN_PASSWORD: Boolean(password),
-    ADMIN_SESSION_SECRET: Boolean(secret),
-    CONTEXT: process.env.CONTEXT || null,
-    DEPLOY_ID: process.env.DEPLOY_ID || null
-  };
-  console.log('admin-auth env status', envStatus);
 
   if (!password || !secret) {
     return {
       statusCode: 503,
       headers: {'Content-Type':'application/json','Cache-Control':'no-store'},
-      body: JSON.stringify({
-        error:'admin_not_configured',
-        missing:[
-          !password ? 'ADMIN_PASSWORD' : null,
-          !secret ? 'ADMIN_SESSION_SECRET' : null
-        ].filter(Boolean),
-        context: envStatus.CONTEXT
-      })
+      body: JSON.stringify({error:'admin_not_configured'})
     };
   }
 
