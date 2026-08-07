@@ -1,16 +1,39 @@
-/* ZveenTV — final mobile polish */
+/* ZveenTV — final mobile/performance polish */
+
+.legal-links{display:inline-flex;align-items:center;gap:10px}.legal-links a{transition:color .18s ease}.legal-links a:hover,.legal-links a:focus-visible{color:var(--magenta-bright)}
+.legal-page .legal-shell{max-width:980px}.legal-page .legal-card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(29,14,24,.94),rgba(14,7,12,.97));padding:34px;margin-bottom:22px}.legal-page .legal-card h2{font-family:var(--ff-display);font-size:1.35rem;margin-bottom:12px}.legal-page .legal-card h3{font-family:var(--ff-display);font-size:1rem;margin:24px 0 8px}.legal-page .legal-card p,.legal-page .legal-card li{color:var(--text-muted);margin-bottom:10px}.legal-page .legal-card ul{padding-left:20px}.legal-page .legal-card a{color:var(--magenta-bright)}.legal-warning{border:1px solid #b97828;background:rgba(185,120,40,.08);color:#f0c98f;padding:14px 16px;margin-bottom:22px}.legal-missing{color:#f0c98f!important}
+
+/* Custom offline Twitch card: the heavy Twitch player is only created while live. */
 .twitch-offline-card{width:100%;height:100%;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px 24px;background:radial-gradient(circle at 50% 18%,rgba(201,68,143,.16),transparent 38%),linear-gradient(145deg,#1b0d18,#090508 72%);position:relative;overflow:hidden}
 .twitch-offline-card::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.025) 0 1px,transparent 1px 36px);pointer-events:none}
 .twitch-offline-card img{position:relative;width:72px;height:72px;border-radius:50%;border:2px solid var(--magenta-bright);box-shadow:0 0 34px rgba(201,68,143,.2);margin-bottom:20px}
 .twitch-offline-card strong{position:relative;font-family:var(--ff-display);font-size:clamp(1.35rem,4vw,2rem);line-height:1.05}
 .twitch-offline-card p{position:relative;color:var(--text-muted);font-size:.9rem;max-width:40ch;margin:10px auto 20px}
 .twitch-offline-card a{position:relative;font-family:var(--ff-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--magenta-bright)}
-.mobile-discord-link{display:none}
+
 @media (max-width:760px){
-  .nav-inner{gap:12px}.nav-cta .btn.ghost{display:none}.mobile-discord-link{display:block}
-  .hero-home{overflow:hidden;padding:42px 0 62px}.home-hero-grid{width:100%;max-width:100%;padding:0 20px;gap:30px;overflow:hidden}.hero-copy{width:100%;min-width:0}.hero-home h1{width:100%;max-width:100%;font-size:clamp(3rem,17vw,4.8rem);letter-spacing:-.065em;white-space:nowrap}.hero-logo{width:82px;height:82px;margin-bottom:18px}.hero-kicker{font-size:.62rem;margin-bottom:15px}.hero-home p.tagline{font-size:.94rem;line-height:1.58;margin-top:20px}.hero-home .hero-cta{margin-top:26px}.hero-meta{margin-top:22px}.stream-stage{padding:9px}
-  section{padding:58px 0}.home-intro{padding:58px 0}.home-pillars{padding:62px 0 66px}.home-closer{padding:58px 0}.section-head{margin-bottom:36px}.pillar-grid{gap:18px}.pillar-card,.pillar-card:last-child{min-height:240px;padding:24px}.subpage .page-hero{padding:58px 0 48px}.clip-section+.clip-section{margin-top:54px}.clips-page .clips-grid{gap:22px}.clips-page .clip-popup-meta{min-height:0}.clips-page .clips-cta{margin-top:54px!important}
+  .nav-inner{gap:12px}
+  .nav-cta .btn.ghost{display:none}
+  nav.links.open .mobile-discord-link{display:block}
+  .hero-home{overflow:hidden;padding:42px 0 62px}
+  .home-hero-grid{width:100%;max-width:100%;padding:0 20px;gap:30px;overflow:hidden}
+  .hero-copy{width:100%;min-width:0}
+  .hero-home h1{width:100%;max-width:100%;font-size:clamp(3rem,17vw,4.8rem);letter-spacing:-.065em;white-space:nowrap}
+  .hero-logo{width:82px;height:82px;margin-bottom:18px}
+  .hero-kicker{font-size:.62rem;margin-bottom:15px}
+  .hero-home p.tagline{font-size:.94rem;line-height:1.58;margin-top:20px}
+  .hero-home .hero-cta{margin-top:26px}
+  .hero-meta{margin-top:22px}
+  .stream-stage{padding:9px}
+  section{padding:58px 0}
+  .home-intro{padding:58px 0}.home-pillars{padding:62px 0 66px}.home-closer{padding:58px 0}.section-head{margin-bottom:36px}.pillar-grid{gap:18px}.pillar-card,.pillar-card:last-child{min-height:240px;padding:24px}
+  .subpage .page-hero{padding:58px 0 48px}.clip-section+.clip-section{margin-top:54px}.clips-page .clips-grid{gap:22px}.clips-page .clip-popup-meta{min-height:0}.clips-page .clips-cta{margin-top:54px!important}
+  .footer-inner{align-items:flex-start;flex-direction:column;gap:8px}.legal-links{margin-top:4px}
 }
+
 @media (max-width:480px){
-  .nav-inner{padding:11px 14px}.brand img{width:36px;height:36px}.nav-cta{margin-left:auto}.nav-cta .btn.primary{padding:9px 13px;font-size:.64rem}.nav-toggle{width:38px;height:38px;flex:0 0 38px}.home-hero-grid{padding:0 16px}.hero-home h1{font-size:min(17vw,4.45rem)}.content-narrow,.content-wide,.content-full,.wrap{padding-left:18px;padding-right:18px}.twitch-offline-card{min-height:220px;padding:26px 18px}.twitch-offline-card img{width:62px;height:62px;margin-bottom:16px}.clip-modal{padding:10px}.clip-modal-panel{max-height:94vh}
+  .nav-inner{padding:11px 14px}.brand img{width:36px;height:36px}.nav-cta{margin-left:auto}.nav-cta .btn.primary{padding:9px 13px;font-size:.64rem}.nav-toggle{width:38px;height:38px;flex:0 0 38px}
+  .home-hero-grid{padding:0 16px}.hero-home h1{font-size:min(17vw,4.45rem)}.content-narrow,.content-wide,.content-full,.wrap{padding-left:18px;padding-right:18px}
+  .twitch-offline-card{min-height:220px;padding:26px 18px}.twitch-offline-card img{width:62px;height:62px;margin-bottom:16px}
+  .clip-modal{padding:10px}.clip-modal-panel{max-height:94vh}.legal-page .legal-card{padding:22px 18px}
 }
