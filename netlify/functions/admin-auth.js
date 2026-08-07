@@ -8,16 +8,38 @@ function sign(payload, secret) {
 
 exports.handler = async function(event) {
   if (event.httpMethod !== 'POST') return { statusCode: 405, body: 'Method not allowed' };
+
   const password = process.env.ADMIN_PASSWORD;
   const secret = process.env.ADMIN_SESSION_SECRET;
-  if (!password || !secret) return { statusCode: 503, body: JSON.stringify({error:'admin_not_configured'}) };
+  const envStatus = {
+    ADMIN_PASSWORD: Boolean(password),
+    ADMIN_SESSION_SECRET: Boolean(secret),
+    CONTEXT: process.env.CONTEXT || null,
+    DEPLOY_ID: process.env.DEPLOY_ID || null
+  };
+  console.log('admin-auth env status', envStatus);
+
+  if (!password || !secret) {
+    return {
+      statusCode: 503,
+      headers: {'Content-Type':'application/json','Cache-Control':'no-store'},
+      body: JSON.stringify({
+        error:'admin_not_configured',
+        missing:[
+          !password ? 'ADMIN_PASSWORD' : null,
+          !secret ? 'ADMIN_SESSION_SECRET' : null
+        ].filter(Boolean),
+        context: envStatus.CONTEXT
+      })
+    };
+  }
 
   let body = {};
   try { body = JSON.parse(event.body || '{}'); } catch (_) {}
   const a = Buffer.from(String(body.password || ''));
   const b = Buffer.from(String(password));
   if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
-    return { statusCode: 401, headers:{'Content-Type':'application/json'}, body: JSON.stringify({error:'invalid_credentials'}) };
+    return { statusCode: 401, headers:{'Content-Type':'application/json','Cache-Control':'no-store'}, body: JSON.stringify({error:'invalid_credentials'}) };
   }
 
   const token = sign({exp: Date.now() + 8*60*60*1000}, secret);
