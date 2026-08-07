@@ -5,131 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZveenTV — Gaming, gute Laune & pures Chaos</title>
 <meta name="description" content="ZveenTV auf Twitch — Gaming, gute Laune und eine ordentliche Portion Chaos. Komm rein, schnapp dir einen Platz und fühl dich wie zuhause.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ZveenTV">
-<meta property="og:title" content="ZveenTV — Gaming, gute Laune & pures Chaos">
-<meta property="og:description" content="Gaming, gute Laune und eine ordentliche Portion Chaos. Komm rein, schnapp dir einen Platz und fühl dich wie zuhause.">
-<meta property="og:image" content="assets/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="assets/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="home.css">
+<meta property="og:type" content="website"><meta property="og:site_name" content="ZveenTV"><meta property="og:title" content="ZveenTV — Gaming, gute Laune & pures Chaos"><meta property="og:description" content="Gaming, gute Laune und eine ordentliche Portion Chaos. Komm rein, schnapp dir einen Platz und fühl dich wie zuhause."><meta property="og:image" content="assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/logo.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="home.css"><script src="site-data.js" defer></script>
 </head>
 <body class="home-page">
 <div class="home-bg" aria-hidden="true"></div>
-<header class="nav">
-  <div class="nav-inner">
-    <div class="brand-group">
-      <a href="index.html" class="brand" aria-label="ZveenTV Startseite">
-        <img src="assets/logo.png" alt="ZveenTV Logo">
-        <span class="brand-name">ZVEEN<span class="hl">TV</span></span>
-      </a>
-      <span class="live-badge-nav" id="liveBadgeNav"><span class="live-badge-dot" aria-hidden="true"></span><span id="liveBadgeText">Live</span></span>
-    </div>
-    <nav class="links" id="navLinks" aria-label="Hauptnavigation">
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">Über mich</a>
-      <a href="equipment.html">Equipment</a>
-      <a href="clips.html">Clips</a>
-      <a href="community.html">Community</a>
-    </nav>
-    <div class="nav-cta">
-      <a class="btn ghost" href="https://discord.com/invite/sVWuKPpkG8" target="_blank" rel="noopener">Discord</a>
-      <a class="btn primary" href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Auf Twitch</a>
-    </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">☰</button>
-  </div>
-</header>
-
+<header class="nav"><div class="nav-inner"><div class="brand-group"><a href="index.html" class="brand" aria-label="ZveenTV Startseite"><img src="assets/logo.png" alt="ZveenTV Logo"><span class="brand-name">ZVEEN<span class="hl">TV</span></span></a><span class="live-badge-nav" id="liveBadgeNav"><span class="live-badge-dot" aria-hidden="true"></span><span id="liveBadgeText">Live</span></span></div><nav class="links" id="navLinks" aria-label="Hauptnavigation"><a href="index.html" class="active">Home</a><a href="about.html">Über mich</a><a href="equipment.html">Equipment</a><a href="clips.html">Clips</a><a href="community.html">Community</a></nav><div class="nav-cta"><a class="btn ghost" href="https://discord.com/invite/sVWuKPpkG8" target="_blank" rel="noopener">Discord</a><a class="btn primary" href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Auf Twitch</a></div><button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">☰</button></div></header>
 <main id="top">
-  <section class="hero hero-home">
-    <div class="hero-inner home-hero-grid">
-      <div class="hero-copy">
-        <div class="hero-kicker"><span></span>Willkommen bei ZveenTV</div>
-        <img class="hero-logo" src="assets/logo.png" alt="ZveenTV Logo">
-        <h1>ZVEEN<span>TV</span></h1>
-        <p class="tagline">Gaming, gute Laune und eine ordentliche Portion Chaos. Komm rein, schnapp dir einen Platz und fühl dich wie zuhause.</p>
-        <div class="hero-cta">
-          <a class="btn primary hero-btn" href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Stream öffnen →</a>
-          <a class="btn ghost hero-btn" href="community.html">Community entdecken</a>
-        </div>
-        <div class="hero-meta" aria-label="ZveenTV Inhalte"><span>Gaming</span><span>Just Chatting</span><span>Community</span></div>
-      </div>
-
-      <div class="stream-stage">
-        <div class="stream-stage-top">
-          <div><span class="stream-label">ZVEENTV // STREAM</span><strong>Direkt live dabei</strong></div>
-          <span class="stream-state" id="streamState"><i></i><span id="streamStateText">Twitch</span></span>
-        </div>
-        <div class="twitch-live-wrap" id="twitchEmbed">
-          <div class="twitch-fallback"><a href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Live-Player auf Twitch öffnen →</a></div>
-        </div>
-        <div class="stream-stage-bottom">
-          <span>twitch.tv/zveentv</span>
-          <a href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Auf Twitch ansehen ↗</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="home-intro">
-    <div class="content-wide intro-grid">
-      <div>
-        <div class="eyebrow">Das ist ZveenTV</div>
-        <h2>Kein Hochglanz-Gelaber.<br><span>Einfach ein guter Abend.</span></h2>
-      </div>
-      <div class="intro-copy">
-        <p>Hier geht es um Games, gute Gespräche und genau das richtige Maß an Chaos. Ohne künstliche Show – dafür mit einer Community, bei der man gerne hängen bleibt.</p>
-        <div class="intro-links"><a href="about.html">Mehr über ZveenTV →</a><a href="clips.html">Clips ansehen →</a></div>
-      </div>
-    </div>
-  </section>
+<section class="hero hero-home"><div class="hero-inner home-hero-grid"><div class="hero-copy"><div class="hero-kicker"><span></span>Willkommen bei ZveenTV</div><img class="hero-logo" src="assets/logo.png" alt="ZveenTV Logo"><h1>ZVEEN<span>TV</span></h1><p class="tagline">Gaming, gute Laune und eine ordentliche Portion Chaos. Komm rein, schnapp dir einen Platz und fühl dich wie zuhause.</p><div class="hero-cta"><a class="btn primary hero-btn" href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Stream öffnen →</a><a class="btn ghost hero-btn" href="community.html">Community entdecken</a></div><div class="hero-meta" aria-label="ZveenTV Inhalte"><span>Gaming</span><span>Just Chatting</span><span>Community</span></div></div><div class="stream-stage"><div class="stream-stage-top"><div><span class="stream-label">ZVEENTV // STREAM</span><strong>Direkt live dabei</strong></div><span class="stream-state" id="streamState"><i></i><span id="streamStateText">Twitch</span></span></div><div class="twitch-live-wrap" id="twitchEmbed"><div class="twitch-fallback"><a href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Live-Player auf Twitch öffnen →</a></div></div><div class="stream-stage-bottom"><span>twitch.tv/zveentv</span><a href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Auf Twitch ansehen ↗</a></div></div></div><a class="scroll-cue" href="#about-zveentv" aria-label="Mehr über ZveenTV"><span></span>Mehr entdecken</a></section>
+<section class="home-intro" id="about-zveentv"><div class="content-wide intro-grid"><div><div class="eyebrow">Das ist ZveenTV</div><h2>Kein Hochglanz-Gelaber.<br><span>Einfach ein guter Abend.</span></h2></div><div class="intro-copy"><p>Hier geht es um Games, gute Gespräche und genau das richtige Maß an Chaos. Ohne künstliche Show – dafür mit einer Community, bei der man gerne hängen bleibt.</p><div class="intro-links"><a href="about.html">Mehr über ZveenTV →</a><a href="clips.html">Clips ansehen →</a></div></div></div></section>
+<section class="home-pillars"><div class="content-wide"><div class="section-head"><div class="eyebrow">Was dich erwartet</div><h2>Ein Stream mit Charakter.</h2><p>Keine austauschbare Gaming-Seite, sondern ein Ort mit eigener Stimmung, eigener Community und genug Raum für spontane Eskalation.</p></div><div class="pillar-grid"><a class="pillar-card" href="about.html"><span class="pillar-num">01</span><div><h3>Persönlich statt perfekt</h3><p>Mal laut, mal entspannt, aber immer echt. ZveenTV lebt nicht von einer Rolle, sondern von Persönlichkeit.</p></div><span class="pillar-link">Über ZveenTV →</span></a><a class="pillar-card" href="clips.html"><span class="pillar-num">02</span><div><h3>Gaming & Chaos</h3><p>WoW, Warzone, spontane Games und die Momente, die sich vorher garantiert niemand so ausgedacht hat.</p></div><span class="pillar-link">Clips ansehen →</span></a><a class="pillar-card" href="community.html"><span class="pillar-num">03</span><div><h3>Ein Platz zum Bleiben</h3><p>Der Stream ist der Anfang. Discord und Community machen aus Zuschauern Leute, die man beim nächsten Abend wiedererkennt.</p></div><span class="pillar-link">Community entdecken →</span></a></div></div></section>
+<section class="home-closer"><div class="content-wide closer-inner"><div><div class="eyebrow">Bereit?</div><h2>Der nächste gute Abend wartet nicht auf Perfektion.</h2><p>Komm rein, wenn ZveenTV live ist — oder schau dich vorher noch ein bisschen um.</p></div><div class="closer-actions"><a class="btn primary" href="https://www.twitch.tv/zveentv" target="_blank" rel="noopener">Zu Twitch →</a><a class="btn ghost" href="community.html">Zur Community</a></div></div></section>
 </main>
-
-<footer>
-  <div class="content-wide footer-inner"><span>© 2026 ZveenTV</span><span>Gaming. Gute Laune. Pures Chaos.</span></div>
-</footer>
-
-<script>
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  navToggle?.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', isOpen);
-  });
-
-  fetch('/.netlify/functions/twitch-status')
-    .then(res => res.ok ? res.json() : Promise.reject())
-    .then(data => {
-      const badge = document.getElementById('liveBadgeNav');
-      const badgeText = document.getElementById('liveBadgeText');
-      const state = document.getElementById('streamState');
-      const stateText = document.getElementById('streamStateText');
-      if (data.live) {
-        if (badge && badgeText) { badgeText.textContent = `Live · ${data.viewers ?? 0}`; badge.classList.add('is-live'); }
-        if (state && stateText) { state.classList.add('is-live'); stateText.textContent = 'Live'; }
-      } else if (stateText) {
-        stateText.textContent = 'Offline';
-      }
-    })
-    .catch(() => {});
-
-  const twitchContainer = document.getElementById('twitchEmbed');
-  if (twitchContainer) {
-    const hostname = window.location.hostname || 'localhost';
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://player.twitch.tv/?channel=zveentv&parent=${hostname}&muted=true`;
-    iframe.allowFullscreen = true;
-    iframe.setAttribute('scrolling', 'no');
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('title', 'ZveenTV Live-Player');
-    iframe.setAttribute('loading', 'eager');
-    twitchContainer.innerHTML = '';
-    twitchContainer.appendChild(iframe);
-  }
-</script>
-</body>
-</html>
+<footer><div class="content-wide footer-inner"><span>© 2026 ZveenTV</span><span>Gaming. Gute Laune. Pures Chaos.</span></div></footer>
+<script>const navToggle=document.getElementById('navToggle');const navLinks=document.getElementById('navLinks');navToggle?.addEventListener('click',()=>{const isOpen=navLinks.classList.toggle('open');navToggle.setAttribute('aria-expanded',isOpen);});fetch('/.netlify/functions/twitch-status').then(res=>res.ok?res.json():Promise.reject()).then(data=>{const badge=document.getElementById('liveBadgeNav'),badgeText=document.getElementById('liveBadgeText'),state=document.getElementById('streamState'),stateText=document.getElementById('streamStateText');if(data.live){if(badge&&badgeText){badgeText.textContent=`Live · ${data.viewers??0}`;badge.classList.add('is-live')}if(state&&stateText){state.classList.add('is-live');stateText.textContent='Live'}}else if(stateText)stateText.textContent='Offline'}).catch(()=>{});const twitchContainer=document.getElementById('twitchEmbed');if(twitchContainer){const hostname=window.location.hostname||'localhost';const iframe=document.createElement('iframe');iframe.src=`https://player.twitch.tv/?channel=zveentv&parent=${hostname}&muted=true`;iframe.allowFullscreen=true;iframe.setAttribute('scrolling','no');iframe.setAttribute('frameborder','0');iframe.setAttribute('title','ZveenTV Live-Player');iframe.setAttribute('loading','eager');twitchContainer.innerHTML='';twitchContainer.appendChild(iframe)}</script>
+</body></html>
