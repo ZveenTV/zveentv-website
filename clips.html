@@ -43,25 +43,26 @@ let lastFocus=null;
 function esc(v){return String(v??'').replace(/[&<>'\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]));}
 function formatViews(v){return new Intl.NumberFormat('de-DE').format(Number(v)||0);}
 function formatDuration(v){const s=Math.round(Number(v)||0);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;}
-function fallbackClips(){return CLIP_IDS.map((id,i)=>({id,title:`Clip ${String(i+1).padStart(2,'0')}`,url:`https://www.twitch.tv/zveentv/clip/${id}`}));}
+function fallbackClips(){return CLIP_IDS.map(id=>({id,title:'Twitch-Titel wird geladen …',url:`https://www.twitch.tv/zveentv/clip/${id}`}));}
 
 function renderClips(clips){
   grid.innerHTML='';
-  clips.forEach((clip,index)=>{
+  clips.forEach(clip=>{
+    const title=clip.title||'Twitch-Titel wird geladen …';
     const card=document.createElement('button');
     card.type='button';
     card.className='clip-popup-card';
     card.dataset.clip=clip.id;
-    card.dataset.title=clip.title||`Clip ${index+1}`;
+    card.dataset.title=title;
     card.dataset.url=clip.url||`https://www.twitch.tv/zveentv/clip/${clip.id}`;
     card.dataset.views=clip.views??'';
     card.dataset.duration=clip.duration??'';
 
     const preview=clip.thumbnail
-      ? `<img src="${clip.thumbnail}" alt="Thumbnail: ${esc(clip.title)}" loading="lazy">`
-      : `<iframe src="https://clips.twitch.tv/embed?clip=${encodeURIComponent(clip.id)}&parent=${encodeURIComponent(parent)}&autoplay=false&muted=true" title="Vorschau ${esc(clip.title)}" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>`;
+      ? `<img src="${clip.thumbnail}" alt="Thumbnail: ${esc(title)}" loading="lazy">`
+      : `<iframe src="https://clips.twitch.tv/embed?clip=${encodeURIComponent(clip.id)}&parent=${encodeURIComponent(parent)}&autoplay=false&muted=true" title="Vorschau ${esc(title)}" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>`;
 
-    card.innerHTML=`<div class="clip-popup-preview">${preview}<span class="clip-popup-shade"></span><span class="play-icon" aria-hidden="true"></span>${clip.duration?`<span class="clip-duration">${formatDuration(clip.duration)}</span>`:''}</div><div class="clip-popup-meta"><div class="clip-title-wrap"><span class="num">Clip ${String(index+1).padStart(2,'0')}</span><strong>${esc(clip.title||`Clip ${index+1}`)}</strong>${clip.views!==undefined?`<small>${formatViews(clip.views)} Aufrufe</small>`:''}</div><span class="go">Hier ansehen →</span></div>`;
+    card.innerHTML=`<div class="clip-popup-preview">${preview}<span class="clip-popup-shade"></span><span class="play-icon" aria-hidden="true"></span>${clip.duration?`<span class="clip-duration">${formatDuration(clip.duration)}</span>`:''}</div><div class="clip-popup-meta"><div class="clip-title-wrap"><span class="num">Twitch Clip</span><strong>${esc(title)}</strong>${clip.views!==undefined?`<small>${formatViews(clip.views)} Aufrufe</small>`:''}</div><span class="go">Hier ansehen →</span></div>`;
     card.addEventListener('click',()=>openClip(card));
     grid.appendChild(card);
   });
