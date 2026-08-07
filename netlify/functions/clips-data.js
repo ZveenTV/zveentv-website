@@ -48,36 +48,18 @@ async function getBroadcasterId(clientId, token) {
   return user.id;
 }
 
-async function fetchTopClips(clientId, token) {
+async function fetchLatestClips(clientId, token) {
   const broadcasterId = await getBroadcasterId(clientId, token);
-  const all = [];
-  let cursor = '';
+  const params = new URLSearchParams({ broadcaster_id: broadcasterId, first: '20' });
+  const payload = await twitchFetch(
+    `https://api.twitch.tv/helix/clips?${params.toString()}`,
+    clientId,
+    token
+  );
 
-  // Twitch liefert Clips chronologisch/paginiert. Wir holen mehrere Seiten und
-  // sortieren anschließend selbst nach view_count. Dadurch bleiben die sechs
-  // stärksten Clips automatisch aktuell, ohne feste Clip-IDs im Code.
-  for (let page = 0; page < 10; page += 1) {
-    const params = new URLSearchParams({
-      broadcaster_id: broadcasterId,
-      first: '100'
-    });
-    if (cursor) params.set('after', cursor);
-
-    const payload = await twitchFetch(
-      `https://api.twitch.tv/helix/clips?${params.toString()}`,
-      clientId,
-      token
-    );
-
-    const clips = Array.isArray(payload.data) ? payload.data : [];
-    all.push(...clips);
-    cursor = payload.pagination?.cursor || '';
-    if (!cursor || clips.length === 0) break;
-  }
-
-  return all
-    .sort((a, b) => (Number(b.view_count) || 0) - (Number(a.view_count) || 0))
-    .slice(0, 6)
+  return (Array.isArray(payload.data) ? payload.data : [])
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .slice(0, 3)
     .map(clip => ({
       id: clip.id,
       title: clip.title || '',
@@ -93,23 +75,19 @@ async function fetchTopClips(clientId, token) {
 exports.handler = async function () {
   const headers = {
     'Content-Type': 'application/json; charset=utf-8',
-    'Cache-Control': 'public, max-age=300, s-maxage=1800, stale-while-revalidate=86400'
+    'Cache-Control': 'public, max-age=120, s-maxage=300, stale-while-revalidate=1800'
   };
 
   const now = Date.now();
   if (cachedClips && now < cachedClipsExpiry) {
-    return { statusCode: 200, headers, body: JSON.stringify({ clips: cachedClips, mode: 'top_views' }) };
+    return { statusCode: 200, headers, body: JSON.stringify({ clips: cachedClips, mode: 'latest' }) };
   }
 
   const clientId = process.env.TWITCH_CLIENT_ID;
   const clientSecret = process.env.TWITCH_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ clips: [], error: 'twitch_not_configured' })
-    };
+    return { statusCode: 200, headers, body: JSON.stringify({ clips: [], error: 'twitch_not_configured' }) };
   }
 
   try {
@@ -117,29 +95,20 @@ exports.handler = async function () {
     let clips;
 
     try {
-      clips = await fetchTopClips(clientId, token);
+      clips = await fetchLatestClips(clientId, token);
     } catch (error) {
       if (!String(error.message).includes('401')) throw error;
       cachedToken = null;
       cachedTokenExpiry = 0;
       token = await getToken(clientId, clientSecret);
-      clips = await fetchTopClips(clientId, token);
+      clips = await fetchLatestClips(clientId, token);
     }
 
     cachedClips = clips;
-    cachedClipsExpiry = now + 30 * 60 * 1000;
-
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ clips, mode: 'top_views' })
-    };
+    cachedClipsExpiry = now + 5 * 60 * 1000;
+    return { statusCode: 200, headers, body: JSON.stringify({ clips, mode: 'latest' }) };
   } catch (error) {
     console.error('clips-data:', error?.message || error);
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ clips: [], error: 'fetch_failed' })
-    };
+    return { statusCode: 200, headers, body: JSON.stringify({ clips: [], error: 'fetch_failed' }) };
   }
 };
