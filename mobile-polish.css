@@ -1,5 +1,6 @@
 /* ZveenTV — final mobile/performance polish */
 
+.mobile-discord-link{display:none}
 .legal-links{display:inline-flex;align-items:center;gap:10px}.legal-links a{transition:color .18s ease}.legal-links a:hover,.legal-links a:focus-visible{color:var(--magenta-bright)}
 .legal-page .legal-shell{max-width:980px}.legal-page .legal-card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(29,14,24,.94),rgba(14,7,12,.97));padding:34px;margin-bottom:22px}.legal-page .legal-card h2{font-family:var(--ff-display);font-size:1.35rem;margin-bottom:12px}.legal-page .legal-card h3{font-family:var(--ff-display);font-size:1rem;margin:24px 0 8px}.legal-page .legal-card p,.legal-page .legal-card li{color:var(--text-muted);margin-bottom:10px}.legal-page .legal-card ul{padding-left:20px}.legal-page .legal-card a{color:var(--magenta-bright)}.legal-warning{border:1px solid #b97828;background:rgba(185,120,40,.08);color:#f0c98f;padding:14px 16px;margin-bottom:22px}.legal-missing{color:#f0c98f!important}
 
