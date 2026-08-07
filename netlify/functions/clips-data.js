@@ -15,6 +15,59 @@ let cachedTokenExpiry = 0;
 let cachedClips = null;
 let cachedClipsExpiry = 0;
 
+function decodeEntities(value = '') {
+  return value
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+function getMeta(html, key) {
+  const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const patterns = [
+    new RegExp(`<meta[^>]+(?:property|name)=["']${escaped}["'][^>]+content=["']([^"']+)["'][^>]*>`, 'i'),
+    new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']${escaped}["'][^>]*>`, 'i')
+  ];
+  for (const pattern of patterns) {
+    const match = html.match(pattern);
+    if (match?.[1]) return decodeEntities(match[1].trim());
+  }
+  return '';
+}
+
+async function scrapeClip(id) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 4500);
+  try {
+    const response = await fetch(`https://clips.twitch.tv/${encodeURIComponent(id)}`, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; ZveenTVWebsite/1.0)',
+        Accept: 'text/html,application/xhtml+xml'
+      },
+      redirect: 'follow',
+      signal: controller.signal
+    });
+    if (!response.ok) throw new Error(`Clip page ${response.status}`);
+    const html = await response.text();
+    let title = getMeta(html, 'og:title');
+    const thumbnail = getMeta(html, 'og:image');
+    const url = getMeta(html, 'og:url') || `https://clips.twitch.tv/${id}`;
+    if (title) title = title.replace(/\s*[-|]\s*Twitch\s*$/i, '').trim();
+    return { id, title, thumbnail, url };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function scrapeClips() {
+  const results = await Promise.allSettled(CLIP_IDS.map(scrapeClip));
+  return results
+    .map((result, index) => result.status === 'fulfilled' ? result.value : ({ id: CLIP_IDS[index], title: '', thumbnail: '', url: `https://clips.twitch.tv/${CLIP_IDS[index]}` }))
+    .filter(Boolean);
+}
+
 async function getToken(clientId, clientSecret) {
   const now = Date.now();
   if (cachedToken && now < cachedTokenExpiry) return cachedToken;
@@ -69,30 +122,34 @@ exports.handler = async function () {
     'Cache-Control': 'public, max-age=300, s-maxage=1800, stale-while-revalidate=86400'
   };
 
-  const clientId = process.env.TWITCH_CLIENT_ID;
-  const clientSecret = process.env.TWITCH_CLIENT_SECRET;
-
-  if (!clientId || !clientSecret) {
-    return { statusCode: 200, headers, body: JSON.stringify({ clips: [], error: 'not_configured' }) };
-  }
-
   const now = Date.now();
   if (cachedClips && now < cachedClipsExpiry) {
     return { statusCode: 200, headers, body: JSON.stringify({ clips: cachedClips }) };
   }
 
+  const clientId = process.env.TWITCH_CLIENT_ID;
+  const clientSecret = process.env.TWITCH_CLIENT_SECRET;
+
   try {
-    let token = await getToken(clientId, clientSecret);
     let clips;
 
-    try {
-      clips = await fetchClips(clientId, token);
-    } catch (error) {
-      if (!String(error.message).includes('401')) throw error;
-      cachedToken = null;
-      cachedTokenExpiry = 0;
-      token = await getToken(clientId, clientSecret);
-      clips = await fetchClips(clientId, token);
+    if (clientId && clientSecret) {
+      try {
+        let token = await getToken(clientId, clientSecret);
+        try {
+          clips = await fetchClips(clientId, token);
+        } catch (error) {
+          if (!String(error.message).includes('401')) throw error;
+          cachedToken = null;
+          cachedTokenExpiry = 0;
+          token = await getToken(clientId, clientSecret);
+          clips = await fetchClips(clientId, token);
+        }
+      } catch (_) {
+        clips = await scrapeClips();
+      }
+    } else {
+      clips = await scrapeClips();
     }
 
     cachedClips = clips;
