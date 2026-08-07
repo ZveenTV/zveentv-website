@@ -1,72 +1,9 @@
-const CLIP_IDS = [
-  'BadNurturingSnailRlyTho-jCj4Fejr8AXM0EIt',
-  'RenownedShinyManateeThunBeast-sKU2Cd4DO_5DR_MR',
-  'FunSincereGullHeyGuys-0zpR9ZezQCqHGOA_',
-  'FragileMiniatureGuanacoFloof-e8JwEx0ettOBVw8P',
-  'DoubtfulAbstruseLampFeelsBadMan-m7CScTTXqMdWnuH8',
-  'YummyUgliestMallardNotLikeThis-74agjpJuNJ3INNuR',
-  'RelentlessLovelyOtterKreygasm-DcYc840Y2KEufIpg',
-  'DaintyWimpyTroutKreygasm-AJ9BnasHz2mMS0xi',
-  'FaintCreativeSageEleGiggle-9la1JXW-PjauwS12'
-];
+const CHANNEL = 'zveentv';
 
 let cachedToken = null;
 let cachedTokenExpiry = 0;
 let cachedClips = null;
 let cachedClipsExpiry = 0;
-
-function decodeEntities(value = '') {
-  return value
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>');
-}
-
-function getMeta(html, key) {
-  const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const patterns = [
-    new RegExp(`<meta[^>]+(?:property|name)=["']${escaped}["'][^>]+content=["']([^"']+)["'][^>]*>`, 'i'),
-    new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']${escaped}["'][^>]*>`, 'i')
-  ];
-  for (const pattern of patterns) {
-    const match = html.match(pattern);
-    if (match?.[1]) return decodeEntities(match[1].trim());
-  }
-  return '';
-}
-
-async function scrapeClip(id) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 4500);
-  try {
-    const response = await fetch(`https://clips.twitch.tv/${encodeURIComponent(id)}`, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; ZveenTVWebsite/1.0)',
-        Accept: 'text/html,application/xhtml+xml'
-      },
-      redirect: 'follow',
-      signal: controller.signal
-    });
-    if (!response.ok) throw new Error(`Clip page ${response.status}`);
-    const html = await response.text();
-    let title = getMeta(html, 'og:title');
-    const thumbnail = getMeta(html, 'og:image');
-    const url = getMeta(html, 'og:url') || `https://clips.twitch.tv/${id}`;
-    if (title) title = title.replace(/\s*[-|]\s*Twitch\s*$/i, '').trim();
-    return { id, title, thumbnail, url };
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-async function scrapeClips() {
-  const results = await Promise.allSettled(CLIP_IDS.map(scrapeClip));
-  return results
-    .map((result, index) => result.status === 'fulfilled' ? result.value : ({ id: CLIP_IDS[index], title: '', thumbnail: '', url: `https://clips.twitch.tv/${CLIP_IDS[index]}` }))
-    .filter(Boolean);
-}
 
 async function getToken(clientId, clientSecret) {
   const now = Date.now();
@@ -89,31 +26,68 @@ async function getToken(clientId, clientSecret) {
   return cachedToken;
 }
 
-async function fetchClips(clientId, token) {
-  const params = new URLSearchParams();
-  CLIP_IDS.forEach(id => params.append('id', id));
-
-  const response = await fetch(`https://api.twitch.tv/helix/clips?${params.toString()}`, {
+async function twitchFetch(url, clientId, token) {
+  const response = await fetch(url, {
     headers: {
       'Client-Id': clientId,
       Authorization: `Bearer ${token}`
     }
   });
+  if (!response.ok) throw new Error(`Twitch API ${response.status}`);
+  return response.json();
+}
 
-  if (!response.ok) throw new Error(`Clips API ${response.status}`);
-  const payload = await response.json();
-  const byId = new Map((payload.data || []).map(clip => [clip.id, clip]));
+async function getBroadcasterId(clientId, token) {
+  const payload = await twitchFetch(
+    `https://api.twitch.tv/helix/users?login=${encodeURIComponent(CHANNEL)}`,
+    clientId,
+    token
+  );
+  const user = payload.data?.[0];
+  if (!user?.id) throw new Error('Broadcaster not found');
+  return user.id;
+}
 
-  return CLIP_IDS.map(id => byId.get(id)).filter(Boolean).map(clip => ({
-    id: clip.id,
-    title: clip.title,
-    url: clip.url,
-    thumbnail: clip.thumbnail_url,
-    views: clip.view_count,
-    duration: clip.duration,
-    creator: clip.creator_name,
-    createdAt: clip.created_at
-  }));
+async function fetchTopClips(clientId, token) {
+  const broadcasterId = await getBroadcasterId(clientId, token);
+  const all = [];
+  let cursor = '';
+
+  // Twitch liefert Clips chronologisch/paginiert. Wir holen mehrere Seiten und
+  // sortieren anschließend selbst nach view_count. Dadurch bleiben die sechs
+  // stärksten Clips automatisch aktuell, ohne feste Clip-IDs im Code.
+  for (let page = 0; page < 10; page += 1) {
+    const params = new URLSearchParams({
+      broadcaster_id: broadcasterId,
+      first: '100'
+    });
+    if (cursor) params.set('after', cursor);
+
+    const payload = await twitchFetch(
+      `https://api.twitch.tv/helix/clips?${params.toString()}`,
+      clientId,
+      token
+    );
+
+    const clips = Array.isArray(payload.data) ? payload.data : [];
+    all.push(...clips);
+    cursor = payload.pagination?.cursor || '';
+    if (!cursor || clips.length === 0) break;
+  }
+
+  return all
+    .sort((a, b) => (Number(b.view_count) || 0) - (Number(a.view_count) || 0))
+    .slice(0, 6)
+    .map(clip => ({
+      id: clip.id,
+      title: clip.title || '',
+      url: clip.url,
+      thumbnail: clip.thumbnail_url,
+      views: Number(clip.view_count) || 0,
+      duration: clip.duration,
+      creator: clip.creator_name,
+      createdAt: clip.created_at
+    }));
 }
 
 exports.handler = async function () {
@@ -124,38 +98,48 @@ exports.handler = async function () {
 
   const now = Date.now();
   if (cachedClips && now < cachedClipsExpiry) {
-    return { statusCode: 200, headers, body: JSON.stringify({ clips: cachedClips }) };
+    return { statusCode: 200, headers, body: JSON.stringify({ clips: cachedClips, mode: 'top_views' }) };
   }
 
   const clientId = process.env.TWITCH_CLIENT_ID;
   const clientSecret = process.env.TWITCH_CLIENT_SECRET;
 
+  if (!clientId || !clientSecret) {
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ clips: [], error: 'twitch_not_configured' })
+    };
+  }
+
   try {
+    let token = await getToken(clientId, clientSecret);
     let clips;
 
-    if (clientId && clientSecret) {
-      try {
-        let token = await getToken(clientId, clientSecret);
-        try {
-          clips = await fetchClips(clientId, token);
-        } catch (error) {
-          if (!String(error.message).includes('401')) throw error;
-          cachedToken = null;
-          cachedTokenExpiry = 0;
-          token = await getToken(clientId, clientSecret);
-          clips = await fetchClips(clientId, token);
-        }
-      } catch (_) {
-        clips = await scrapeClips();
-      }
-    } else {
-      clips = await scrapeClips();
+    try {
+      clips = await fetchTopClips(clientId, token);
+    } catch (error) {
+      if (!String(error.message).includes('401')) throw error;
+      cachedToken = null;
+      cachedTokenExpiry = 0;
+      token = await getToken(clientId, clientSecret);
+      clips = await fetchTopClips(clientId, token);
     }
 
     cachedClips = clips;
-    cachedClipsExpiry = now + 15 * 60 * 1000;
-    return { statusCode: 200, headers, body: JSON.stringify({ clips }) };
+    cachedClipsExpiry = now + 30 * 60 * 1000;
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ clips, mode: 'top_views' })
+    };
   } catch (error) {
-    return { statusCode: 200, headers, body: JSON.stringify({ clips: [], error: 'fetch_failed' }) };
+    console.error('clips-data:', error?.message || error);
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ clips: [], error: 'fetch_failed' })
+    };
   }
 };
