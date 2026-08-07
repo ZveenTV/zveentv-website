@@ -1,6 +1,6 @@
 {
   "home": {
-    "tagline": "Gaming, gute Laune und eine ordentliche Portion Chaos. Komm rein, schnapp dir einen Platz und fühl dich wie zuhause."
+    "tagline": "Gaming, gute Laune und eine ordentliche Portion Chaos. Komm rein, schnapp dir einen Platz und fühl dich wie zuhause. Das ist ein ChatGPT Test!"
   },
   "about": {
     "lede": "Gaming, gute Laune und pures Chaos — genau daraus ist ZveenTV entstanden. Nicht das Spiel steht im Mittelpunkt, sondern das, was gemeinsam daraus wird.",
@@ -12,43 +12,151 @@
       "Und wer sich über die Farben wundert: Fußball gehört genauso dazu. Die Verbundenheit zum VfL Osnabrück steckt sichtbar in der Identität von ZveenTV."
     ],
     "stats": [
-      ["Name", "Sven"],
-      ["Fokus", "Gaming, Unterhaltung & Community"],
-      ["Vibe", "Chaotisch, direkt, entspannt"],
-      ["Content", "Mixed Content statt Ein-Spiel-Kanal"],
-      ["Games", "World of Warcraft · Warzone"],
-      ["Ziel", "Ein digitales Zuhause für die Community"],
-      ["Leidenschaft", "Fußball & VfL Osnabrück"],
-      ["Ankündigungen", "Discord"]
+      [
+        "Name",
+        "Sven"
+      ],
+      [
+        "Fokus",
+        "Gaming, Unterhaltung & Community"
+      ],
+      [
+        "Vibe",
+        "Chaotisch, direkt, entspannt"
+      ],
+      [
+        "Content",
+        "Mixed Content statt Ein-Spiel-Kanal"
+      ],
+      [
+        "Games",
+        "World of Warcraft · Warzone"
+      ],
+      [
+        "Ziel",
+        "Ein digitales Zuhause für die Community"
+      ],
+      [
+        "Leidenschaft",
+        "Fußball & VfL Osnabrück"
+      ],
+      [
+        "Ankündigungen",
+        "Discord"
+      ]
     ]
   },
   "equipment": {
     "pc": [
-      ["Gehäuse", "Lian Li O11 Dynamic Mini", "https://geizhals.de/lian-li-pc-o11-dynamic-mini-v47492.html"],
-      ["Mainboard", "MSI MAG B650 Tomahawk WIFI, AM5, DDR5, ATX", "https://geizhals.de/msi-mag-b650-tomahawk-wifi-a2824300.html"],
-      ["CPU", "AMD Ryzen 7 7800X3D, 8C/16T, 4,20–5,00GHz", "https://geizhals.de/amd-ryzen-7-7800x3d-100-100000910wof-a2872148.html"],
-      ["Grafikkarte", "ASUS TUF Gaming GeForce RTX 5070 Ti OC, 16GB GDDR7", "https://geizhals.de/asus-tuf-geforce-rtx-5070-ti-oc-a3382466.html"],
-      ["AiO WaKü", "DeepCool LS720", "https://geizhals.de/deepcool-ls720-argb-a2741759.html"],
-      ["RAM", "Corsair Vengeance RGB grau, Kit 32GB, DDR5-6000", "https://geizhals.de/corsair-vengeance-rgb-grau-dimm-kit-32gb-cmh32gx5m2b6000z30k-a2866139.html"],
-      ["6× Lüfter", "be quiet! Light Wings LX PWM, 120mm, 3er-Pack", "https://geizhals.de/be-quiet-light-wings-lx-pwm-bl121-a3319930.html"],
-      ["Netzteil", "be quiet! Pure Power 12 M 850W, ATX 3.1", "https://geizhals.de/be-quiet-pure-power-12-m-850w-atx-3-0-bn344-a2884020.html"]
+      [
+        "Gehäuse",
+        "Lian Li O11 Dynamic Mini",
+        "https://geizhals.de/lian-li-pc-o11-dynamic-mini-v47492.html"
+      ],
+      [
+        "Mainboard",
+        "MSI MAG B650 Tomahawk WIFI, AM5, DDR5, ATX",
+        "https://geizhals.de/msi-mag-b650-tomahawk-wifi-a2824300.html"
+      ],
+      [
+        "CPU",
+        "AMD Ryzen 7 7800X3D, 8C/16T, 4,20–5,00GHz",
+        "https://geizhals.de/amd-ryzen-7-7800x3d-100-100000910wof-a2872148.html"
+      ],
+      [
+        "Grafikkarte",
+        "ASUS TUF Gaming GeForce RTX 5070 Ti OC, 16GB GDDR7",
+        "https://geizhals.de/asus-tuf-geforce-rtx-5070-ti-oc-a3382466.html"
+      ],
+      [
+        "AiO WaKü",
+        "DeepCool LS720",
+        "https://geizhals.de/deepcool-ls720-argb-a2741759.html"
+      ],
+      [
+        "RAM",
+        "Corsair Vengeance RGB grau, Kit 32GB, DDR5-6000",
+        "https://geizhals.de/corsair-vengeance-rgb-grau-dimm-kit-32gb-cmh32gx5m2b6000z30k-a2866139.html"
+      ],
+      [
+        "6× Lüfter",
+        "be quiet! Light Wings LX PWM, 120mm, 3er-Pack",
+        "https://geizhals.de/be-quiet-light-wings-lx-pwm-bl121-a3319930.html"
+      ],
+      [
+        "Netzteil",
+        "be quiet! Pure Power 12 M 850W, ATX 3.1",
+        "https://geizhals.de/be-quiet-pure-power-12-m-850w-atx-3-0-bn344-a2884020.html"
+      ]
     ],
     "audio": [
-      ["Mikrofon", "Shure SM7B", "https://geizhals.de/shure-sm7b-a318326.html"],
-      ["Audio-Interface", "RØDE RØDECaster Duo", "https://geizhals.de/r-de-r-decaster-duo-v145137.html"],
-      ["Mikrofonarm", "Elgato Wave Mic Arm LP, schwarz", "https://geizhals.de/elgato-wave-mic-arm-lp-a2566300.html"],
-      ["Webcam", "Elgato Facecam MK.2", "https://www.elgato.com/de/de/p/facecam-mk2"],
-      ["Licht", "Logitech Litra Glow", "https://geizhals.de/logitech-litra-glow-946-000002-a2665236.html"],
-      ["Capture-Card", "Elgato Game Capture HD60 S+", ""],
-      ["Stream Deck", "Elgato Stream Deck MK.2, schwarz", "https://www.elgato.com/de/de/p/stream-deck-mk2-black"]
+      [
+        "Mikrofon",
+        "Shure SM7B",
+        "https://geizhals.de/shure-sm7b-a318326.html"
+      ],
+      [
+        "Audio-Interface",
+        "RØDE RØDECaster Duo",
+        "https://geizhals.de/r-de-r-decaster-duo-v145137.html"
+      ],
+      [
+        "Mikrofonarm",
+        "Elgato Wave Mic Arm LP, schwarz",
+        "https://geizhals.de/elgato-wave-mic-arm-lp-a2566300.html"
+      ],
+      [
+        "Webcam",
+        "Elgato Facecam MK.2",
+        "https://www.elgato.com/de/de/p/facecam-mk2"
+      ],
+      [
+        "Licht",
+        "Logitech Litra Glow",
+        "https://geizhals.de/logitech-litra-glow-946-000002-a2665236.html"
+      ],
+      [
+        "Capture-Card",
+        "Elgato Game Capture HD60 S+",
+        ""
+      ],
+      [
+        "Stream Deck",
+        "Elgato Stream Deck MK.2, schwarz",
+        "https://www.elgato.com/de/de/p/stream-deck-mk2-black"
+      ]
     ],
     "accessories": [
-      ["Tastatur", "Nyfter Gen2 98%", "https://nyfter.com/products/nyfboard-gen2-98"],
-      ["Maus", "Turtle Beach Kone XP Air", "https://de.turtlebeach.com/products/kone-xp-air-mouse"],
-      ["Controller", "Microsoft Xbox Series X Wireless Controller, Carbon Black", "https://geizhals.de/microsoft-xbox-series-x-wireless-controller-carbon-black-xbox-sx-xbox-one-pc-qat-00009-a2903177.html"],
-      ["Bildschirmhalter", "Putorsen Triple Monitor Arm, 3× 17–32 Zoll", "https://geizhals.de/putorsen-triple-monitor-arm-for-3-monitors-17-32-inch-screens-v158633.html"],
-      ["Bildschirm 1", "HUAWEI MateView GT 27, QHD, 4ms", ""],
-      ["Bildschirm 2 & 3", "Samsung Serie 3 68,6cm, FHD 1080p", "https://www.amazon.de/dp/B08SWLW1J8"]
+      [
+        "Tastatur",
+        "Nyfter Gen2 98%",
+        "https://nyfter.com/products/nyfboard-gen2-98"
+      ],
+      [
+        "Maus",
+        "Turtle Beach Kone XP Air",
+        "https://de.turtlebeach.com/products/kone-xp-air-mouse"
+      ],
+      [
+        "Controller",
+        "Microsoft Xbox Series X Wireless Controller, Carbon Black",
+        "https://geizhals.de/microsoft-xbox-series-x-wireless-controller-carbon-black-xbox-sx-xbox-one-pc-qat-00009-a2903177.html"
+      ],
+      [
+        "Bildschirmhalter",
+        "Putorsen Triple Monitor Arm, 3× 17–32 Zoll",
+        "https://geizhals.de/putorsen-triple-monitor-arm-for-3-monitors-17-32-inch-screens-v158633.html"
+      ],
+      [
+        "Bildschirm 1",
+        "HUAWEI MateView GT 27, QHD, 4ms",
+        ""
+      ],
+      [
+        "Bildschirm 2 & 3",
+        "Samsung Serie 3 68,6cm, FHD 1080p",
+        "https://www.amazon.de/dp/B08SWLW1J8"
+      ]
     ]
   },
   "clips": [
