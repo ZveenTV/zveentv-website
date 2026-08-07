@@ -2,6 +2,13 @@
   publish = "."
   functions = "netlify/functions"
 
+# Der lokale Inhalts-Editor bleibt im Repository, wird aber nicht öffentlich ausgeliefert.
+[[redirects]]
+  from = "/editor.html"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/404.html"
@@ -11,9 +18,24 @@
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Cross-Origin-Opener-Policy = "same-origin-allow-popups"
 
+# HTML soll nach Deployments schnell aktualisiert werden.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Fingerprint-freie Stylesheets moderat cachen, damit Änderungen zeitnah ankommen.
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, stale-while-revalidate=86400"
+
+# Bilder/Emotes ändern sich selten und dürfen langfristig im Browsercache bleiben.
 [[headers]]
   for = "/assets/*"
   [headers.values]
