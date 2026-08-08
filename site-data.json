@@ -1,6 +1,6 @@
 {
   "home": {
-    "tagline": "Gaming, gute Laune und eine ordentliche Portion Chaos. Komm rein, schnapp dir einen Platz und fühl dich wie zuhause."
+    "tagline": "Gaming, gute Laune und eine ordentliche Portion Chaos. Komm rein, schnapp dir einen Platz und fühl dich wie zuhause......"
   },
   "about": {
     "lede": "Gaming, gute Laune und pures Chaos — genau daraus ist ZveenTV entstanden. Nicht das Spiel steht im Mittelpunkt, sondern das, was gemeinsam daraus wird.",
@@ -176,5 +176,13 @@
     "youtube": "https://www.youtube.com/@zveentv",
     "instagram": "https://www.instagram.com/zveentv",
     "tiktok": "https://www.tiktok.com/@zveen.tv"
+  },
+  "legal": {
+    "name": "",
+    "street": "",
+    "city": "",
+    "email": "",
+    "phone": "",
+    "responsible": ""
   }
 }
