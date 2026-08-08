@@ -1,1 +1,6 @@
-export { onRequest } from '../[[path]].js';
+function json(data,status=200){return new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}})}
+function bytesToB64url(bytes){let s='';for(const b of bytes)s+=String.fromCharCode(b);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+async function hmac(value,secret){const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(secret),{name:'HMAC',hash:'SHA-256'},false,['sign']);return new Uint8Array(await crypto.subtle.sign('HMAC',key,new TextEncoder().encode(value)))}
+async function sign(payload,secret){const body=bytesToB64url(new TextEncoder().encode(JSON.stringify(payload)));const sig=bytesToB64url(await hmac(body,secret));return `${body}.${sig}`}
+function sameString(a,b){a=new TextEncoder().encode(String(a??''));b=new TextEncoder().encode(String(b??''));if(a.length!==b.length)return false;let diff=0;for(let i=0;i<a.length;i++)diff|=a[i]^b[i];return diff===0}
+export async function onRequest({request,env}){if(request.method!=='POST')return new Response('Method not allowed',{status:405});if(!env.ADMIN_PASSWORD||!env.ADMIN_SESSION_SECRET)return json({error:'admin_not_configured'},503);let body={};try{body=await request.json()}catch{}if(!sameString(body.password,env.ADMIN_PASSWORD))return json({error:'invalid_credentials'},401);return json({token:await sign({exp:Date.now()+8*60*60*1000},env.ADMIN_SESSION_SECRET)})}
