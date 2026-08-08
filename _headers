@@ -9,9 +9,19 @@
   Cache-Control: no-store, max-age=0
   X-Robots-Tag: noindex, nofollow, noarchive
 
+/admin/*
+  Cache-Control: no-store, max-age=0
+  X-Robots-Tag: noindex, nofollow, noarchive
+
 /admin.html
   Cache-Control: no-store, max-age=0
   X-Robots-Tag: noindex, nofollow, noarchive
+
+/admin-texts.js
+  Cache-Control: no-store, max-age=0
+
+/cms-text-runtime.js
+  Cache-Control: no-store, max-age=0
 
 /site-data.js
   Cache-Control: no-store, max-age=0
