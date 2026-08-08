@@ -3,6 +3,5 @@ Allow: /
 Disallow: /admin
 Disallow: /admin.html
 Disallow: /editor.html
-Disallow: /.netlify/
 
-Sitemap: https://zveentv.netlify.app/sitemap.xml
+Sitemap: https://zveentv-website.pages.dev/sitemap.xml
